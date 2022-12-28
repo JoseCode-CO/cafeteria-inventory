@@ -26,6 +26,7 @@ class ProductController extends Controller
      */
     public function create()
     {
+
         return view('products.create');
     }
 
@@ -42,8 +43,8 @@ class ProductController extends Controller
             'name' => 'required|string|unique:products',
             'reference' => 'required',
             'price' => 'required|numeric|max:999999999',
-            'weight' => 'required',
-            'category' => 'required|string',
+            'weight' => 'required|numeric',
+            'category' => 'required',
             'stock' =>'required|integer',
         ]);
 
@@ -56,6 +57,7 @@ class ProductController extends Controller
             'stock' => $request->stock
         ]);
 
+        session()->flash('success', 'Tu registro ha sido exitoso!');
         return back();
     }
 
@@ -97,7 +99,7 @@ class ProductController extends Controller
             'reference' => 'required',
             'price' => 'required|numeric|max:999999999',
             'weight' => 'required',
-            'category' => 'required|string',
+            'category' => 'required',
             'stock' =>'required|integer',
         ]);
 

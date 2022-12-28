@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SaleController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -33,6 +34,14 @@ Route::prefix('products')->group(function () {
     Route::get('/{product}', [ProductController::class, 'edit'])->name('products.edit');
     Route::put('/{product}', [ProductController::class, 'update'])->name('products.update');
     Route::delete('/{product}', [ProductController::class, 'destroy'])->name('products.delete');
+})->middleware(['auth']);
+
+Route::prefix('sale')->group(function () {
+    Route::get('', [SaleController::class, 'index'])->name('sale.index');
+    Route::get('/create', [SaleController::class, 'create'])->name('sale.create');
+    Route::post('', [SaleController::class, 'store'])->name('sale.store');
+    Route::get('/stock', [SaleController::class, 'stockMax'])->name('sale.stock');
+    Route::get('/max-salex', [SaleController::class, 'productMaxSales'])->name('sale.max');
 })->middleware(['auth']);
 
 
