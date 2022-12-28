@@ -17,7 +17,7 @@ return new class extends Migration
          /* Creating a table with the following columns:
          id, name, reference, weight, category, stock, created_at, updated_at */
             $table->id();
-            $table->string('name')->required();
+            $table->string('name')->required()->unique();
             $table->string('reference')->required();
             $table->integer('weight')->required();
             $table->string('category')->required();
