@@ -19,8 +19,8 @@ return new class extends Migration
             $table->id();
             $table->string('name')->required()->unique();
             $table->string('reference')->required();
-            $table->decimal('price', 10, 2);
-            $table->integer('weight')->required();
+            $table->decimal('price', 10, 0)->required();
+            $table->decimal('weight', 10, 0)->required();
             $table->string('category')->required();
             $table->integer('stock')->required();
             $table->timestamps();

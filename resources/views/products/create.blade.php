@@ -19,27 +19,57 @@
                         <div class="card-body">
                             <div class="mb-2">
                                 <label class="form-label">Nombre</label>
-                                <input type="text" class="form-control" name="name" autocomplete="off" required>
+                                <span class="text-sm text-red-600">
+                                    @error('name')
+                                        {{ $message }}
+                                    @enderror
+                                </span>
+                                <input type="text" class="form-control" name="name" autocomplete="off" value="{{ old('name')}}" required>
                             </div>
                             <div class="mb-2">
                                 <label class="form-label">Referencia</label>
-                                <input type="text" class="form-control" name="reference" autocomplete="off" required>
+                                <span class="text-sm text-red-600">
+                                    @error('reference')
+                                        {{ $message }}
+                                    @enderror
+                                </span>
+                                <input type="text" class="form-control" name="reference" autocomplete="off" value="{{ old('reference')}}" required>
                             </div>
                             <div class="mb-2">
                                 <label class="form-label">Precio</label>
-                                <input type="number" class="form-control" name="weight" autocomplete="off" required>
+                                <span class="text-sm text-red-600">
+                                    @error('price')
+                                        {{ $message }}
+                                    @enderror
+                                </span>
+                                <input type="number" class="form-control" name="price" autocomplete="off" value="{{ old('price')}}" required>
                             </div>
                             <div class="mb-2">
                                 <label class="form-label">Peso</label>
-                                <input type="number" class="form-control" name="weight" autocomplete="off" required>
+                                <span class="text-sm text-red-600">
+                                    @error('weight')
+                                        {{ $message }}
+                                    @enderror
+                                </span>
+                                <input type="number" class="form-control" name="weight" autocomplete="off" value="{{ old('weight')}}" required>
                             </div>
                             <div class="mb-2">
                                 <label class="form-label">Categoria</label>
-                                <input type="text" class="form-control" name="category" autocomplete="off" required>
+                                <span class="text-sm text-red-600">
+                                    @error('category')
+                                        {{ $message }}
+                                    @enderror
+                                </span>
+                                <input type="text" class="form-control" name="category" autocomplete="off" value="{{ old('category')}}" required>
                             </div>
                             <div class="mb-2">
                                 <label class="form-label">Stock</label>
-                                <input type="number" class="form-control" name="stock" autocomplete="off" required>
+                                <span class="text-sm text-red-600">
+                                    @error('stock')
+                                        {{ $message }}
+                                    @enderror
+                                </span>
+                                <input type="number" class="form-control" name="stock" autocomplete="off"  value="{{ old('stock')}}" required>
                             </div>
                             <div class="mb-2 float-right">
                                 @csrf

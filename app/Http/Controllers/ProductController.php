@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class ProductController extends Controller
 {
@@ -15,7 +16,7 @@ class ProductController extends Controller
     public function index()
     {
         $data = Product::all();
-        return view('products.index');
+        return view('products.index', compact('data'));
     }
 
     /**
@@ -36,7 +37,26 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request->all());
+
+        $request->validate([
+            'name' => 'required|string|unique:products',
+            'reference' => 'required',
+            'price' => 'required|numeric|max:999999999',
+            'weight' => 'required',
+            'category' => 'required|string',
+            'stock' =>'required|integer',
+        ]);
+
+        Product::create([
+            'name' => $request->name,
+            'reference' => $request->reference,
+            'price' => $request->price,
+            'weight' => $request->weight,
+            'category' => $request->category,
+            'stock' => $request->stock
+        ]);
+
+        return back();
     }
 
     /**
@@ -58,7 +78,8 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        //
+        $edit = Product::find($product)->first();
+        return view('products.edit',compact('edit'));
     }
 
     /**
@@ -70,7 +91,26 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-        //
+        $request->validate([
+            'name' => ['required',
+            Rule::unique('products')->ignore($product->id)],
+            'reference' => 'required',
+            'price' => 'required|numeric|max:999999999',
+            'weight' => 'required',
+            'category' => 'required|string',
+            'stock' =>'required|integer',
+        ]);
+
+        $product->update([
+            'name' => $request->name,
+            'reference' => $request->reference,
+            'price' => $request->price,
+            'weight' => $request->weight,
+            'category' => $request->category,
+            'stock' => $request->stock
+        ]);
+
+        return redirect()->route('products.index', $product);
     }
 
     /**
@@ -81,6 +121,8 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        //
+        $product = Product::destroy($product->id);
+
+        return back();
     }
 }
