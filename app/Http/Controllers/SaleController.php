@@ -10,7 +10,8 @@ class SaleController extends Controller
 {
     public function index()
     {
-        return view('sales.index');
+        $product = Product::all();
+        return view('sales.index', compact('product'));
     }
 
     public function create()
@@ -49,8 +50,9 @@ class SaleController extends Controller
 
     public function stockMax()
     {
-
+        //Utilizando eloquent
         $product = Product::where('stock', Product::max('stock'))->first();
+
         //En sql seria: SELECT * FROM products WHERE stock = (SELECT MAX(stock) FROM products);
 
         return view('sales.stock', compact('product'));
@@ -58,11 +60,21 @@ class SaleController extends Controller
 
     public function productMaxSales()
     {
+        //Utilizando eloquent
         $product = Product::join('sales', 'products.id', '=', 'sales.product_id')
             ->selectRaw('products.*, SUM(sales.sale_made) as total_sales')
             ->groupBy('products.id', 'products.name', 'products.reference', 'products.price', 'products.weight', 'products.category', 'products.stock', 'products.created_at', 'products.updated_at')
             ->orderBy('total_sales', 'desc')
             ->first();
+
+        //En sql seria:
+        /*SELECT products.*, SUM(sales.sale_made) as total_sales
+        FROM products
+            JOIN sales ON products.id = sales.product_id
+            GROUP BY products.id, products.name, products.reference, products.price, products.weight, products.category, products.stock, products.created_at, products.updated_at
+            ORDER BY total_sales DESC
+            LIMIT 1;*/
+
         return view('sales.max', compact('product'));
     }
 }

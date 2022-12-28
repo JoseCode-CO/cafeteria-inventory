@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Models\Sale;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
@@ -45,7 +46,7 @@ class ProductController extends Controller
             'price' => 'required|numeric|max:999999999',
             'weight' => 'required|numeric',
             'category' => 'required',
-            'stock' =>'required|integer',
+            'stock' => 'required|integer',
         ]);
 
         Product::create([
@@ -81,7 +82,7 @@ class ProductController extends Controller
     public function edit(Product $product)
     {
         $edit = Product::find($product)->first();
-        return view('products.edit',compact('edit'));
+        return view('products.edit', compact('edit'));
     }
 
     /**
@@ -94,13 +95,15 @@ class ProductController extends Controller
     public function update(Request $request, Product $product)
     {
         $request->validate([
-            'name' => ['required',
-            Rule::unique('products')->ignore($product->id)],
+            'name' => [
+                'required',
+                Rule::unique('products')->ignore($product->id)
+            ],
             'reference' => 'required',
             'price' => 'required|numeric|max:999999999',
             'weight' => 'required',
             'category' => 'required',
-            'stock' =>'required|integer',
+            'stock' => 'required|integer',
         ]);
 
         $product->update([
@@ -123,8 +126,8 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        $product = Product::destroy($product->id);
-
+        Sale::where('product_id', $product->id)->delete();
+        Product::destroy($product->id);
         return back();
     }
 }

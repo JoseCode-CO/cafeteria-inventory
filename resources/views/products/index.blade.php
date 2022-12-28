@@ -35,6 +35,8 @@
                                     <tr>
                                         <th>Id</th>
                                         <th>Nombre</th>
+                                        <th>Peso</th>
+                                        <th>Categoria</th>
                                         <th>Referencia</th>
                                         <th>Stock</th>
                                         <th>Precio</th>
@@ -46,6 +48,8 @@
                                         <tr>
                                             <th>{{ $product->id }}</th>
                                             <td>{{ $product->name }}</td>
+                                            <td>{{ $product->weight }}</td>
+                                            <td>{{ $product->category }}</td>
                                             <td>{{ $product->reference }}</td>
                                             <td>{{ $product->stock }}</td>
                                             <td>{{ $product->price }}</td>
@@ -59,8 +63,6 @@
                                                     <button class="btn btn-sm  btn-outline-danger"
                                                         type="submit">Eliminar</button>
                                                 </form>
-                                                <a href="{{ route('products.edit', $product->id) }}" type="button"
-                                                    class="btn btn-info btn-sm">Ver mas...</a>
                                             </td>
                                         </tr>
                                     @endforeach
