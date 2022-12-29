@@ -14,6 +14,8 @@ Por favor seguir estos pasos:
 - Ejecutar npm run dev y npm run build (Para compilar los estilos).
 - Ejecuta las migraciones y los seeders: php artisan migrate:fresh --seed.
 - Ejecutar el proyecto con php artisan serve.
+- Login: Correo: admin@admin.com
+         Contraseña: password
 
 Importante para este caso se dejó libre el archivo .env, para una mejor experiencia.
 
